@@ -24,34 +24,34 @@ services:
     command: filebeat -e --strict.perms=false
     depends_on: 
     - elk
-#   backend:
-#     image: httpd:2.4
-#     ports:
-#       - "1234:80"
-#   waf:
-#     image: owasp/modsecurity-crs:apache
-#     network_mode: "host"
-# #    ports:
-# #      - "8080:80"
-#     environment:
-#       MODSEC_AUDIT_LOG_FORMAT: JSON
-#       MODSEC_AUDIT_LOG: "/dev/stdout"
-#       #MODSEC_AUDIT_LOG_TYPE: Serial
-#       #MODSEC_AUDIT_LOG: "/var/log/modsec_audit.log"
-#       MODSEC_RESP_BODY_ACCESS: "On"
-#       SERVERNAME: apache
-#       BACKEND: http://localhost:1234
-#       PORT: "80"
-#       MODSEC_RULE_ENGINE: DetectionOnly
-#       BLOCKING_PARANOIA: 4
-#       ERRORLOG: "/var/log/error.log"
-#       ACCESSLOG: "/var/log/access.log"
-#       MODSEC_TMP_DIR: "/tmp"
-#       MODSEC_RESP_BODY_ACCESS: "On"
-#       MODSEC_RESP_BODY_MIMETYPE: "text/plain text/html text/xml application/json"
-#       MAX_FILE_SIZE: "64100"
-#       COMBINED_FILE_SIZES: "65535"
-#       CRS_ENABLE_TEST_MARKER: 1
-#       VALIDATE_UTF8_ENCODING: 1
-#     depends_on:
-#       - backend
+  backend:
+    image: httpd:2.4
+    ports:
+      - "1234:80"
+  waf:
+    image: owasp/modsecurity-crs:apache
+    network_mode: "host"
+#    ports:
+#      - "8080:80"
+    environment:
+      MODSEC_AUDIT_LOG_FORMAT: JSON
+      MODSEC_AUDIT_LOG: "/dev/stdout"
+      #MODSEC_AUDIT_LOG_TYPE: Serial
+      #MODSEC_AUDIT_LOG: "/var/log/modsec_audit.log"
+      MODSEC_RESP_BODY_ACCESS: "On"
+      SERVERNAME: apache
+      BACKEND: http://localhost:1234
+      PORT: "80"
+      MODSEC_RULE_ENGINE: DetectionOnly
+      BLOCKING_PARANOIA: 4
+      ERRORLOG: "/var/log/error.log"
+      ACCESSLOG: "/var/log/access.log"
+      MODSEC_TMP_DIR: "/tmp"
+      MODSEC_RESP_BODY_ACCESS: "On"
+      MODSEC_RESP_BODY_MIMETYPE: "text/plain text/html text/xml application/json"
+      MAX_FILE_SIZE: "64100"
+      COMBINED_FILE_SIZES: "65535"
+      CRS_ENABLE_TEST_MARKER: 1
+      VALIDATE_UTF8_ENCODING: 1
+    depends_on:
+      - backend

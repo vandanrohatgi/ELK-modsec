@@ -3,10 +3,28 @@ filebeat.inputs:
   enabled: true
   paths:
     - /logs/*.log
-- type: log
-  enabled: true
-  paths:
-    - /var/lib/docker/containers/*/*.log
+# - type: log
+#   enabled: true
+#   paths:
+#     - /var/lib/docker/containers/*/*.log
+
+# filebeat.config:
+#   modules:
+#     path: /modules.d/*.yml
+#     reload.enabled: false
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+      templates:
+        - condition:
+            contains:
+              docker.container.image: owasp/modsecurity-crs
+          config:
+            type: container
+            paths:
+              - /var/lib/docker/containers/${data.docker.container.id}/*.log
 
 setup.kibana:
   host: "localhost:5601"
