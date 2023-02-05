@@ -1,8 +1,8 @@
-filebeat.inputs:
-- type: log
-  enabled: true
-  paths:
-    - /logs/*.log
+# filebeat.inputs:
+# - type: log
+#   enabled: true
+#   paths:
+#     - /logs/*.log
 # - type: log
 #   enabled: true
 #   paths:

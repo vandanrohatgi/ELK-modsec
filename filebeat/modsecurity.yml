@@ -1,4 +1,4 @@
 - module: modsecurity
   audit:
     enabled: true
-    var.paths: ["/var/log/*.log"]
+    var.paths: ["/var/log/error.log"]
