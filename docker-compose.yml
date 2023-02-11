@@ -13,6 +13,11 @@ services:
       - "5601:5601"
       - "9200:9200"
       - "5044:5044"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5601"]
+      interval: 30s
+      timeout: 360s
+      retries: 5
 
   filebeat:
     build: ./filebeat
@@ -23,11 +28,14 @@ services:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     command: filebeat -e --strict.perms=false
     depends_on: 
-    - elk
+     elk:
+      condition: service_healthy
+  
   backend:
     image: httpd:2.4
     ports:
       - "1234:80"
+
   waf:
     image: owasp/modsecurity-crs:apache
     network_mode: "host"

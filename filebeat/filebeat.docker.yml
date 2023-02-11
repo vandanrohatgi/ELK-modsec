@@ -13,6 +13,19 @@
 #     path: /modules.d/*.yml
 #     reload.enabled: false
 
+# filebeat.autodiscover:
+#   providers:
+#     - type: docker
+#       hints.enabled: true
+#       templates:
+#         - condition:
+#             contains:
+#               docker.container.image: owasp/modsecurity-crs
+#           config:
+#             type: container
+#             paths:
+#               - /var/lib/docker/containers/${data.docker.container.id}/*.log
+
 filebeat.autodiscover:
   providers:
     - type: docker
@@ -22,9 +35,12 @@ filebeat.autodiscover:
             contains:
               docker.container.image: owasp/modsecurity-crs
           config:
-            type: container
-            paths:
-              - /var/lib/docker/containers/${data.docker.container.id}/*.log
+            - module: modsecurity
+              log:
+                input:
+                  type: container
+                  paths:
+                    - /var/lib/docker/containers/${data.docker.container.id}/*.log
 
 setup.kibana:
   host: "localhost:5601"
